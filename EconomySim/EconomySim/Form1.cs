@@ -14,12 +14,26 @@ namespace EconomySim
 
         private Economy economy;
 	    private Market market;
-//	    private MarketDisplay display;
-//	    private TextField txt_benchmark;
+        //	    private MarketDisplay display;
+        //	    private TextField txt_benchmark;
+
+        private Timer autoStepTimer;
 
         public Form1()
         {
             InitializeComponent();
+
+            autoStepTimer = new Timer();
+            autoStepTimer.Tick += AutoStepTimer_Tick;
+            autoStepTimer.Interval = 1000;
+            autoStepTimer.Enabled = true;
+            autoStepTimer.Start();
+        }
+
+        private void AutoStepTimer_Tick(object sender, EventArgs e)
+        {
+            if (market != null && autoRunCbx.Checked)
+                run(100);
         }
 
         private void button1_Click(object sender, EventArgs e)
