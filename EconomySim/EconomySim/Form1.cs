@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,6 +25,52 @@ namespace EconomySim
         {
             InitializeComponent();
 
+            SetupChart();
+            SetupTimer();            
+        }
+
+        private void SetupChart()
+        {
+            lineChart.Series = new SeriesCollection
+            {
+                //Sample data...
+                new LineSeries
+                {
+                    Title = "Series 1",
+                    Values = new ChartValues<double> {4, 6, 5, 2, 7}
+                },
+                new LineSeries
+                {
+                    Title = "Series 2",
+                    Values = new ChartValues<double> {6, 7, 3, 4, 6},
+                    PointGeometry = null
+                },
+                new LineSeries
+                {
+                    Title = "Series 2",
+                    Values = new ChartValues<double> {5, 2, 8, 3},
+                    PointGeometry = DefaultGeometries.Square,
+                    PointGeometrySize = 15
+                }
+            };
+
+            lineChart.AxisX.Add(new Axis
+            {
+                Title = "Month",
+                Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" }
+            });
+
+            lineChart.AxisY.Add(new Axis
+            {
+                Title = "Sales",
+                LabelFormatter = value => value.ToString("C")
+            });
+
+            lineChart.LegendLocation = LegendLocation.Right;
+        }
+
+        private void SetupTimer()
+        {
             autoStepTimer = new Timer();
             autoStepTimer.Tick += AutoStepTimer_Tick;
             autoStepTimer.Interval = 1000;
