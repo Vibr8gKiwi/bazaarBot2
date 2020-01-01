@@ -1,4 +1,6 @@
-﻿using LiveCharts;
+﻿using EconomySim.Models;
+using LiveCharts;
+using LiveCharts.Configurations;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
@@ -13,13 +15,12 @@ namespace EconomySim
 {
     public partial class Form1 : Form
     {
-
         private Economy economy;
 	    private Market market;
-        //	    private MarketDisplay display;
-        //	    private TextField txt_benchmark;
-
         private Timer autoStepTimer;
+        private int iterationCount = 0;
+
+        public ChartValues<PriceModel> FoodPriceValues { get; set; }
 
         public Form1()
         {
@@ -31,40 +32,36 @@ namespace EconomySim
 
         private void SetupChart()
         {
+            FoodPriceValues = new ChartValues<PriceModel>();
+
+            var mapper = Mappers.Xy<PriceModel>()
+                .X(model => model.Iteration)        //use accumulated iteration count X
+                .Y(model => model.Price);           //use the Price property as Y
+
+            //lets save the mapper globally.
+            Charting.For<PriceModel>(mapper);
+
             lineChart.Series = new SeriesCollection
             {
-                //Sample data...
                 new LineSeries
                 {
-                    Title = "Series 1",
-                    Values = new ChartValues<double> {4, 6, 5, 2, 7}
-                },
-                new LineSeries
-                {
-                    Title = "Series 2",
-                    Values = new ChartValues<double> {6, 7, 3, 4, 6},
-                    PointGeometry = null
-                },
-                new LineSeries
-                {
-                    Title = "Series 2",
-                    Values = new ChartValues<double> {5, 2, 8, 3},
-                    PointGeometry = DefaultGeometries.Square,
-                    PointGeometrySize = 15
+                    Title = "Food Price",
+                    Values = FoodPriceValues
                 }
             };
 
-            lineChart.AxisX.Add(new Axis
-            {
-                Title = "Month",
-                Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" }
-            });
+            //lineChart.AxisX.Add(new Axis
+            //{
+            //    Title = "Iterations",
+            //    Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" }
+            //});
 
-            lineChart.AxisY.Add(new Axis
-            {
-                Title = "Sales",
-                LabelFormatter = value => value.ToString("C")
-            });
+            //lineChart.AxisY.Add(new Axis
+            //{
+            //    Title = "Price",
+            //    LabelFormatter = value => value.ToString("C")
+            //});
+            
 
             lineChart.LegendLocation = LegendLocation.Right;
         }
@@ -97,6 +94,8 @@ namespace EconomySim
 
         private void run(int rounds)
         {
+            iterationCount += rounds; 
+
             market.simulate(rounds);
             var res = market.get_marketReport(rounds);
             dataGridView1.Refresh();
@@ -109,6 +108,13 @@ namespace EconomySim
             textBox1.Text += res.strListGoodAsks.Replace("\n", "\t") + Environment.NewLine;
             //textBox1.Lines = res.arrStrListInventory.ToArray<string>();
             //dataGridView1.DataSource = market._agents;
+
+            //TODO: parse out the results and add to graph
+            FoodPriceValues.Add(new PriceModel
+            {
+                Iteration = iterationCount,
+                Price = Double.Parse(res.strListGoodPrices.Split('\n')[2])
+            });
         }
 
         private void button2_Click(object sender, EventArgs e)
