@@ -40,11 +40,11 @@ namespace EconomySim
             dataGridView1.Refresh();
             //dataGridView2.DataSource = res.arrStrListInventory;
             textBox1.Clear();
-            textBox1.Text = res.strListGood.Replace("\n", "  ") + Environment.NewLine;
-            textBox1.Text += res.strListGoodPrices.Replace("\n", "  ") + Environment.NewLine;
-            textBox1.Text += res.strListGoodTrades.Replace("\n", "  ") + Environment.NewLine;
-            textBox1.Text += res.strListGoodBids.Replace("\n", "  ") + Environment.NewLine;
-            textBox1.Text += res.strListGoodAsks.Replace("\n", "  ") + Environment.NewLine;
+            textBox1.Text = res.strListGood.Replace("\n", "\t") + Environment.NewLine;
+            textBox1.Text += res.strListGoodPrices.Replace("\n", "\t") + Environment.NewLine;
+            textBox1.Text += res.strListGoodTrades.Replace("\n", "\t") + Environment.NewLine;
+            textBox1.Text += res.strListGoodBids.Replace("\n", "\t") + Environment.NewLine;
+            textBox1.Text += res.strListGoodAsks.Replace("\n", "\t") + Environment.NewLine;
             //textBox1.Lines = res.arrStrListInventory.ToArray<string>();
             //dataGridView1.DataSource = market._agents;
         }

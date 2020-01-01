@@ -273,7 +273,7 @@ namespace EconomySim
 	    public MarketReport get_marketReport(int rounds)
 	    {
 		    var mr = new MarketReport();
-		    mr.strListGood = "Commodities\n\n";
+		    mr.strListGood = "Commod\n\n";
 		    mr.strListGoodPrices = "Price\n\n";
 		    mr.strListGoodTrades = "Trades\n\n";
 		    mr.strListGoodAsks = "Supply\n\n";
