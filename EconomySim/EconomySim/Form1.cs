@@ -85,7 +85,7 @@ namespace EconomySim
         {
             economy = new DoranAndParberryEconomy();
 
-            market = economy.getMarket("default");
+            market = economy.GetMarket("default");
 
             dataGridView1.DataSource = market._agents;
             //dataGridView2.DataSource = market._book.dbook;

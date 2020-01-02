@@ -8,7 +8,7 @@ namespace EconomySim
 {
     public interface ISignalBankrupt
     {
-        void signalBankrupt(Market m, BasicAgent agent);
+        void SignalBankrupt(Market m, BasicAgent agent);
     }
 
     public class Market
@@ -47,7 +47,7 @@ namespace EconomySim
 		    signalBankrupt = isb;//new TypedSignal<Market->BasicAgent->Void>();
 	    }
 
-	    public void init(MarketData data)
+	    public void Init(MarketData data)
 	    {
 		    fromData(data);
 	    }
@@ -97,7 +97,7 @@ namespace EconomySim
 			    }
                 while (del.Count > 0)
                 {
-                    signalBankrupt.signalBankrupt(this, del[0]); //signalBankrupt.dispatch(this, agent);
+                    signalBankrupt.SignalBankrupt(this, del[0]); //signalBankrupt.dispatch(this, agent);
                     del.RemoveAt(0);
                 }
                 _roundNum++;
@@ -133,7 +133,7 @@ namespace EconomySim
 	     * @return
 	     */
 
-	    public String getHottestGood(double minimum = 1.5, int range = 10)
+	    public String GetHottestGood(double minimum = 1.5, int range = 10)
 	    {
 		    string best_market = "";
             double best_ratio = -99999;// Math.NEGATIVE_INFINITY;
@@ -219,7 +219,7 @@ namespace EconomySim
 	     * @param	range
 	     * @return
 	     */
-	    public String getMostProfitableAgentClass(int range= 10)
+	    public String GetMostProfitableAgentClass(int range= 10)
 	    {
             double best = -999999;// Math.NEGATIVE_INFINITY;
 		    String bestClass="";

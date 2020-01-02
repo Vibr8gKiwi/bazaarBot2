@@ -48,7 +48,7 @@
     <Compile Include="Agent\AgentData.cs" />
     <Compile Include="Agent\BasicAgent.cs" />
     <Compile Include="Economy\Economy.cs" />
-    <Compile Include="Economy\MyEconomy.cs" />
+    <Compile Include="Economy\DoranAndParberryEconomy.cs" />
     <Compile Include="Goods\Good.cs" />
     <Compile Include="History\History.cs" />
     <Compile Include="Inventory\Inventory.cs" />

@@ -7,40 +7,40 @@ namespace EconomySim
 {
     public class Economy : ISignalBankrupt
     {
-	    private List<Market> _markets;
+	    private List<Market> markets;
 
         public Economy()
 	    {
-		    _markets = new List<Market>();
+		    markets = new List<Market>();
 	    }
 
-	    public void addMarket(Market m)
+	    public void AddMarket(Market m)
 	    {
-		    if (_markets.IndexOf(m) == -1)
+		    if (markets.IndexOf(m) == -1)
 		    {
-			    _markets.Add(m);
+			    markets.Add(m);
 		    }
 	    }
 
-	    public Market getMarket(String name)
+	    public Market GetMarket(string name)
 	    {
-		    foreach (var m in _markets)
+		    foreach (var m in markets)
 		    {
 			    if (m.name == name) return m;
 		    }
 		    return null;
 	    }
 
-	    public void simulate(int rounds)
+	    public void Simulate(int rounds)
 	    {
-		    foreach (var m in _markets)
+		    foreach (var m in markets)
 		    {
 			    m.simulate(rounds);
 		    }
 	    }
 
 
-	    public virtual void signalBankrupt(Market m, BasicAgent a)
+	    public virtual void SignalBankrupt(Market market, BasicAgent agent)
 	    {
 		    //no implemenation -- provide your own in a subclass
 	    }

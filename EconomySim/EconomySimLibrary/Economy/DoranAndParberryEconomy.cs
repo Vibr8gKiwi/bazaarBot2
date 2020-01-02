@@ -10,20 +10,19 @@ namespace EconomySim
 {
     public class DoranAndParberryEconomy : Economy
     {
-
 	    public DoranAndParberryEconomy()
 	    {
 		    var market = new Market("default",this);
 
-            MarketData data = GetMarketData();
-            market.init(data); // market.init(MarketData.fromJSON(Json.parse(Assets.getText("assets/settings.json")), getAgent));
-		    addMarket(market);
+            MarketData data = getMarketData();
+            market.Init(data); // market.init(MarketData.fromJSON(Json.parse(Assets.getText("assets/settings.json")), getAgent));
+		    AddMarket(market);
 	    }
 
-        private MarketData GetMarketData()
+        private MarketData getMarketData()
         {
             List<Good> goods = new List<Good>();
-	        List<AgentData>agentTypes = new List<AgentData>();
+	        List<AgentData> agentTypes = new List<AgentData>();
 	        List<BasicAgent> agents = new List<BasicAgent>();
 
             goods.Add(new Good("food", 0.5));
@@ -111,23 +110,23 @@ namespace EconomySim
         }
 
 
-	    public override void signalBankrupt(Market m, BasicAgent a)
+	    public override void SignalBankrupt(Market market, BasicAgent agent)
 	    {
-		    replaceAgent(m, a);
+		    replaceAgent(market, agent);
 	    }
 
 	    private void replaceAgent(Market market, BasicAgent agent)
 	    {
-		    var bestClass = market.getMostProfitableAgentClass();
+		    var bestClass = market.GetMostProfitableAgentClass();
 
 		    //Special case to deal with very high demand-to-supply ratios
 		    //This will make them favor entering an underserved market over
 		    //Just picking the most profitable class
-		    var bestGood = market.getHottestGood();
+		    var bestGood = market.GetHottestGood();
 
 		    if (bestGood != "")
 		    {
-			    var bestGoodClass = getAgentClassThatMakesMost(bestGood);
+			    var bestGoodClass = GetAgentClassThatMakesMost(bestGood);
 			    if (bestGoodClass != "")
 			    {
 				    bestClass = bestGoodClass;
@@ -164,7 +163,7 @@ namespace EconomySim
 	     * @param	good
 	     * @return
 	     */
-	    public String getAgentClassThatMakesMost(String good)
+	    public string GetAgentClassThatMakesMost(string good)
 	    {
             string res = "";
 		    if (good == "food" )      {res = "farmer";      }
@@ -212,7 +211,7 @@ namespace EconomySim
             return new Agent(0, data);
         }
 
-        private Logic getLogic(String str)
+        private Logic getLogic(string str)
         {
             switch (str)
             {
