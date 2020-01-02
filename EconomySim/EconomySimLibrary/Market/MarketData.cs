@@ -8,10 +8,10 @@ namespace EconomySim
     public class MarketData
     {
 	    public List<Good> goods;
-	    public List<AgentData>agentTypes;
+	    public List<AgentData> agentTypes;
 	    public List<BasicAgent> agents;
 
-	    public MarketData(List<Good>goods, List<AgentData>agentTypes, List<BasicAgent> agents)
+	    public MarketData(List<Good> goods, List<AgentData> agentTypes, List<BasicAgent> agents)
 	    {
 		    this.goods = goods;
 		    this.agentTypes = agentTypes;

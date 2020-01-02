@@ -4,29 +4,18 @@ using System.Linq;
 using System.Text;
 
 namespace EconomySim
-{
-    public class Point
+{    
+    public static class Quick
     {
-        public double x;
-        public double y;
-        public Point(double x, double y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-    }
-
-    public class Quick
-    {
+        //TODO: improve this design
         public static Random rnd = new Random();
 
-
-        public static double avgf(double a, double b)
+        public static double Avg(double a, double b)
         {
             return (a + b) / 2;
         }
 
-        public static double listAvgf(List<double> list)
+        public static double AvgList(List<double> list)
         {
             double avg=0;
             for (int j = 0; j < list.Count; j++)
@@ -37,7 +26,7 @@ namespace EconomySim
             return avg;
         }
 
-        public static double minArr(List<double> a, int window)
+        public static double MinArr(List<double> a, int window)
         {
             double min = 99999999;//Math.POSITIVE_INFINITY;
             if (window > a.Count) window = a.Count;
@@ -50,7 +39,7 @@ namespace EconomySim
             return min;
         }
 
-        public static double maxArr(List<double> a, int window)
+        public static double MaxArr(List<double> a, int window)
         {
             double max = -9999999;///Math.NEGATIVE_INFINITY;
             if (window > a.Count) window = a.Count;
@@ -68,13 +57,13 @@ namespace EconomySim
          * @param	decimals
          * @return
          */
-        public static String numStr(double num, int decimals)
+        public static string NumToStr(double num, int decimals)
         {
             string s = string.Format("{0:N"+decimals.ToString()+"}", num);
             return s;
         }
     //        num = Math.floor(num * tens) / tens;
-    //        var str:String = Std.string(num);
+    //        var str:string = Std.string(num);
     //        var split = str.split(".");
     //        if (split.length == 2)
     //        {
@@ -109,7 +98,7 @@ namespace EconomySim
     //        return str;
     //    }
 
-        public static double positionInRange(double value, double min, double max, bool clamp = true)
+        public static double PositionInRange(double value, double min, double max, bool clamp = true)
         {
             value -= min;
             max -= min;
@@ -127,7 +116,7 @@ namespace EconomySim
     //        return Std.int(Math.random() * cast(1 + max - min, Float)) + min;
     //    }
 
-        public static double randomRange(double a, double b)
+        public static double RandomRange(double a, double b)
         {
             double r = rnd.NextDouble();
             double min = a < b ? a : b;
@@ -136,7 +125,7 @@ namespace EconomySim
             return r * range + min;
         }
 
-        public static List<Offer> shuffle(List<Offer>list)
+        public static List<Offer> Shuffle(List<Offer>list)
         {
             /*
             To shuffle an array a of n elements (indices 0..n-1):
@@ -158,28 +147,29 @@ namespace EconomySim
             return list;
         }
 
-        public static int sortAgentAlpha(BasicAgent a, BasicAgent b)
+        //TODO: convert these to refs
+        public static int SortAgentAlpha(BasicAgent a, BasicAgent b)
         {
-            return String.Compare(a.ClassName,b.ClassName);
+            return string.Compare(a.ClassName,b.ClassName);
         }
 
-        public static int sortAgentId(BasicAgent a, BasicAgent b)
+        public static int SortAgentId(BasicAgent a, BasicAgent b)
         {
             if (a.Id < b.Id) return -1;
             if (a.Id > b.Id) return 1;
             return 0;
         }
 
-        public static int sortOfferAcending(Offer a, Offer b)
+        public static int SortOfferAcending(Offer a, Offer b)
         {
-            if (a.unit_price < b.unit_price) return -1;
-            if (a.unit_price > b.unit_price) return 1;
+            if (a.unitPrice < b.unitPrice) return -1;
+            if (a.unitPrice > b.unitPrice) return 1;
             return 0;
         }
-        public static int sortOfferDecending(Offer a, Offer b)
+        public static int SortOfferDecending(Offer a, Offer b)
         {
-            if (a.unit_price > b.unit_price) return -1;
-            if (a.unit_price < b.unit_price) return 1;
+            if (a.unitPrice > b.unitPrice) return -1;
+            if (a.unitPrice < b.unitPrice) return 1;
             return 0;
         }
 

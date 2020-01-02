@@ -106,12 +106,12 @@ namespace EconomySim
 
 	    public void Ask(Offer offer)
 	    {
-		    book.ask(offer);
+		    book.Ask(offer);
 	    }
 
 	    public void Bid(Offer offer)
 	    {
-		    book.bid(offer);
+		    book.Bid(offer);
 	    }
 
 	    /**
@@ -292,7 +292,7 @@ namespace EconomySim
 			    mr.strListGood += commodity + "\n";
 
 			    var price = History.Prices.Average(commodity, rounds);
-			    mr.strListGoodPrices += Quick.numStr(price, 2) + "\n";
+			    mr.strListGoodPrices += Quick.NumToStr(price, 2) + "\n";
 
 			    var asks = History.Asks.Average(commodity, rounds);
 			    mr.strListGoodAsks += (int)(asks) + "\n";
@@ -314,7 +314,7 @@ namespace EconomySim
 			    }
 			    mr.strListAgent += key + "\n";
 			    var profit = History.Profit.Average(key, rounds);
-			    mr.strListAgentProfit += Quick.numStr(profit, 2) + "\n";
+			    mr.strListAgentProfit += Quick.NumToStr(profit, 2) + "\n";
 
 			    var list = agents; //var list = _agents.filter(function(a:BasicAgent):Bool { return a.className == key; } );  dfs stub wtf
 			    int count = 0;
@@ -337,11 +337,11 @@ namespace EconomySim
 			    for (int lic =0; lic<goodTypes.Count; lic++)
 			    {
 				    inventory[lic] /= count;
-				    mr.arrStrListInventory[lic] += Quick.numStr(inventory[lic],1) + "\n";
+				    mr.arrStrListInventory[lic] += Quick.NumToStr(inventory[lic],1) + "\n";
 			    }
 
-			    mr.strListAgentCount += Quick.numStr(count, 0) + "\n";
-			    mr.strListAgentMoney += Quick.numStr(money, 0) + "\n";
+			    mr.strListAgentCount += Quick.NumToStr(count, 0) + "\n";
+			    mr.strListAgentMoney += Quick.NumToStr(money, 0) + "\n";
 		    }
 		    return mr;
 	    }
@@ -366,7 +366,7 @@ namespace EconomySim
                 History.Bids.Add(g.Id, v);
                 History.Trades.Add(g.Id, v);
 
-			    book.register(g.Id);
+			    book.Register(g.Id);
 		    }
 
 		    mapAgents = new Dictionary<string, AgentData>();
@@ -397,11 +397,11 @@ namespace EconomySim
 		    var bids = book.bids[good];
 		    var asks = book.asks[good];
 
-		    bids = Quick.shuffle(bids);  
-		    asks = Quick.shuffle(asks);  
+		    bids = Quick.Shuffle(bids);  
+		    asks = Quick.Shuffle(asks);  
 
             //bids.Sort(Quick.sortOfferDecending); //highest buying price first
-            asks.Sort(Quick.sortOfferAcending); //lowest selling price first
+            asks.Sort(Quick.SortOfferAcending); //lowest selling price first
 
 		    int successfulTrades = 0;		//# of successful trades this round
 		    double moneyTraded = 0;			//amount of money traded this round
@@ -429,7 +429,7 @@ namespace EconomySim
 			    var seller = asks[0];
 
 			    var quantity_traded = (double)Math.Min(seller.units, buyer.units);
-                var clearing_price = seller.unit_price; //Quick.avgf(seller.unit_price, buyer.unit_price);
+                var clearing_price = seller.unitPrice; //Quick.avgf(seller.unit_price, buyer.unit_price);
 
                 //if (buyer.unit_price < seller.unit_price)
                 //    break;
@@ -440,12 +440,12 @@ namespace EconomySim
 				    seller.units -= quantity_traded;
 				    buyer.units -= quantity_traded;
 
-				    transferGood(good, quantity_traded, seller.agent_id, buyer.agent_id, clearing_price);
-				    transferMoney(quantity_traded * clearing_price, seller.agent_id, buyer.agent_id);
+				    transferGood(good, quantity_traded, seller.agentId, buyer.agentId, clearing_price);
+				    transferMoney(quantity_traded * clearing_price, seller.agentId, buyer.agentId);
 
 				    //update agent price beliefs based on successful transaction
-				    var buyer_a = agents[buyer.agent_id];
-				    var seller_a = agents[seller.agent_id];
+				    var buyer_a = agents[buyer.agentId];
+				    var seller_a = agents[seller.agentId];
 				    buyer_a.UpdatePriceModel(this, "buy", good, true, clearing_price);
 				    seller_a.UpdatePriceModel(this, "sell", good, true, clearing_price);
 
@@ -479,14 +479,14 @@ namespace EconomySim
 		    while (bids.Count > 0)
 		    {
 			    var buyer = bids[0];
-			    var buyer_a = agents[buyer.agent_id];
+			    var buyer_a = agents[buyer.agentId];
 			    buyer_a.UpdatePriceModel(this,"buy",good, false);
 			    bids.RemoveAt(0);//.splice(0, 1);
 		    }
             while (asks.Count > 0)
 		    {
 			    var seller = asks[0];
-			    var seller_a = agents[seller.agent_id];
+			    var seller_a = agents[seller.agentId];
 			    seller_a.UpdatePriceModel(this,"sell",good, false);
                 asks.RemoveAt(0);// splice(0, 1);
 		    }
@@ -510,7 +510,7 @@ namespace EconomySim
 		    }
 
             List<BasicAgent> agentsList = agents.ToList<BasicAgent>();
-		    agentsList.Sort(Quick.sortAgentAlpha);
+		    agentsList.Sort(Quick.SortAgentAlpha);
 
 		    string currClass = "";
 		    string lastClass = "";
@@ -525,7 +525,7 @@ namespace EconomySim
 				    if (list != null)				//do we have a list built up?
 				    {
 					    //log last class' profit
-					    History.Profit.Add(lastClass, Quick.listAvgf(list));
+					    History.Profit.Add(lastClass, Quick.AvgList(list));
 				    }
 				    list = new List<double>();		//make a new list
 				    lastClass = currClass;
@@ -534,7 +534,7 @@ namespace EconomySim
 		    }
 
 		    //add the last class too
-		    History.Profit.Add(lastClass, Quick.listAvgf(list));
+		    History.Profit.Add(lastClass, Quick.AvgList(list));
 
 		    //sort by id so everything works again
 		    //_agents.Sort(Quick.sortAgentId);

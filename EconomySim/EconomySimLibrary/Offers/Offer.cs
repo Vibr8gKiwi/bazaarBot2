@@ -7,22 +7,22 @@ namespace EconomySim
 {
     public class Offer
     {
-	    public String good;	//the thing offered
+	    public string commodity;	//the thing offered
 	    public double units;			//how many units
-	    public double unit_price;	//price per unit
-	    public int agent_id;		//who offered this
+	    public double unitPrice;	//price per unit
+	    public int agentId;		//who offered this
 
-	    public Offer(int agent_id_=-1,String commodity_="",double units_=1.0,double unit_price_=1.0)
+	    public Offer(int agentId = -1, string commodity = "", double units = 1.0, double unitPrice = 1.0)
 	    {
-		    agent_id = agent_id_;
-		    good = commodity_;
-		    units = units_;
-		    unit_price = unit_price_;
+		    this.agentId = agentId;
+		    this.commodity = commodity;
+		    this.units = units;
+		    this.unitPrice = unitPrice;
 	    }
 
-	    public String toString()
+	    public override string ToString()
 	    {
-		    return "("+agent_id + "): " + good + "x " + units + " @ " + unit_price;
+		    return "("+agentId + "): " + commodity + "x " + units + " @ " + unitPrice;
 	    }
     }
 }

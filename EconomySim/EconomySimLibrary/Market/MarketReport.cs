@@ -19,9 +19,6 @@ namespace EconomySim
 	    public String strListAgentMoney = "";
 	    public String strListAgentProfit = "";
 
-        public List<String> arrStrListInventory { get; set; }
-
-	    
+        public List<String> arrStrListInventory { get; set; }	    
     }
-
 }

@@ -23,27 +23,27 @@ namespace EconomySim
             dbook.Rows.Add(1.0,2.0);
         }
 
-	    public void register(String name)
+	    public void Register(String name)
 	    {
 		    asks[name] = new List<Offer>();
 		    bids[name] = new List<Offer>();
 	    }
 
-	    public bool bid(Offer offer)
+	    public bool Bid(Offer offer)
 	    {
-		    if (!bids.ContainsKey(offer.good))
+		    if (!bids.ContainsKey(offer.commodity))
 			    return false;
 
-		    bids[offer.good].Add(offer);
+		    bids[offer.commodity].Add(offer);
 		    return true;
 	    }
 
-	    public bool ask(Offer offer)
+	    public bool Ask(Offer offer)
 	    {
-		    if (!bids.ContainsKey(offer.good))
+		    if (!bids.ContainsKey(offer.commodity))
 			    return false;
 
-		    asks[offer.good].Add(offer);
+		    asks[offer.commodity].Add(offer);
 		    return true;
 	    }
     }

@@ -183,7 +183,7 @@ namespace EconomySim
 
 		    if (tradingRange != null && mean > 0)
 		    {
-			    var favorability= Quick.positionInRange(mean, tradingRange.x, tradingRange.y);//double
+			    var favorability= Quick.PositionInRange(mean, tradingRange.x, tradingRange.y);//double
 			    //position_in_range: high means price is at a high point
 
 			    double amountToSell = Math.Round(favorability * Inventory.Surplus(commodity)); //double
@@ -206,7 +206,7 @@ namespace EconomySim
 
 		    if (tradingRange != null)
 		    {
-			    var favorability = Quick.positionInRange(mean, tradingRange.x, tradingRange.y);//double
+			    var favorability = Quick.PositionInRange(mean, tradingRange.x, tradingRange.y);//double
 			    favorability = 1 - favorability;
 			    //do 1 - favorability to see how close we are to the low end
 
@@ -223,7 +223,7 @@ namespace EconomySim
 	    private Point observeTradingRange(string good, int window)
 	    {
 		    var a = ObservedTradingRange[good]; //List<double>
-		    var pt = new Point(Quick.minArr(a,window), Quick.maxArr(a,window));
+		    var pt = new Point(Quick.MinArr(a,window), Quick.MaxArr(a,window));
 		    return pt;
 	    }
     }

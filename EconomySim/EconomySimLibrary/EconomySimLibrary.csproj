@@ -64,6 +64,7 @@
     <Compile Include="Market\Market.cs" />
     <Compile Include="Market\MarketData.cs" />
     <Compile Include="Market\MarketReport.cs" />
+    <Compile Include="Math\Point.cs" />
     <Compile Include="Math\Quick.cs" />
     <Compile Include="Offers\Offer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
