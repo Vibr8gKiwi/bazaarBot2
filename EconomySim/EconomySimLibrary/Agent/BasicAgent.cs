@@ -45,7 +45,7 @@ namespace EconomySim
 	    public int id;				//unique integer identifier
         public string className { get; set; }	//string identifier, "famer", "woodcutter", etc.
         public double money { get; set; }
-        public double Space { get { return _inventory.getEmptySpace(); } }
+        public double Space { get { return _inventory.GetEmptySpace(); } }
         public double nProduct { get; set; }
 
         //public var moneyLastRound(default, null):double;
@@ -126,23 +126,23 @@ namespace EconomySim
 		    _logic.perform(this, market);
 	    }
 
-        public virtual void generateOffers(Market bazaar, string good)
+        public virtual void GenerateOffers(Market bazaar, string good)
 	    {
 		    //no implemenation -- provide your own in a subclass
 	    }
 
-        public virtual void updatePriceModel(Market bazaar, String act, String good, bool success, double unitPrice = 0)
+        public virtual void UpdatePriceModel(Market bazaar, String act, String good, bool success, double unitPrice = 0)
 	    {
 		    //no implementation -- provide your own in a subclass
 	    }
 
-	    public virtual Offer createBid(Market bazaar, String good, double limit)
+	    public virtual Offer CreateBid(Market bazaar, String good, double limit)
 	    {
 		    //no implementation -- provide your own in a subclass
 		    return null;
 	    }
 
-        public virtual Offer createAsk(Market bazaar, String commodity_, double limit_)
+        public virtual Offer CreateAsk(Market bazaar, String commodity_, double limit_)
 	    {
 		    //no implementation -- provide your own in a subclass
 		    return null;
@@ -150,7 +150,7 @@ namespace EconomySim
 
 	    public double queryInventory(String good)
 	    {
-		    return _inventory.query(good);
+		    return _inventory.Query(good);
 	    }
 
 	    public void produceInventory(String good, double delta)
@@ -193,12 +193,12 @@ namespace EconomySim
 
 	    private double get_inventorySpace()
 	    {
-		    return _inventory.getEmptySpace();
+		    return _inventory.GetEmptySpace();
 	    }
 
 	    public bool get_inventoryFull()
 	    {
-		    return _inventory.getEmptySpace() == 0;
+		    return _inventory.GetEmptySpace() == 0;
 	    }
 
 	    public double get_profit()
@@ -208,15 +208,15 @@ namespace EconomySim
 
 	    protected double determineSaleQuantity(Market bazaar, String commodity_)
 	    {
-		    var mean = bazaar.getAverageHistoricalPrice(commodity_,_lookback); //double
+		    var mean = bazaar.GetAverageHistoricalPrice(commodity_,_lookback); //double
 		    var trading_range = observeTradingRange(commodity_,10);//point
 		    if (trading_range != null && mean>0)
 		    {
 			    var favorability= Quick.positionInRange(mean, trading_range.x, trading_range.y);//double
 			    //position_in_range: high means price is at a high point
 
-			    double amount_to_sell = Math.Round(favorability * _inventory.surplus(commodity_)); //double
-amount_to_sell = _inventory.query(commodity_);
+			    double amount_to_sell = Math.Round(favorability * _inventory.Surplus(commodity_)); //double
+amount_to_sell = _inventory.Query(commodity_);
 			    if (amount_to_sell < 1)
 			    {
 				    amount_to_sell = 1;
@@ -228,7 +228,7 @@ amount_to_sell = _inventory.query(commodity_);
 
         protected double determinePurchaseQuantity(Market bazaar, String commodity_)
 	    {
-		    var mean = bazaar.getAverageHistoricalPrice(commodity_,_lookback);//double
+		    var mean = bazaar.GetAverageHistoricalPrice(commodity_,_lookback);//double
 		    var trading_range = observeTradingRange(commodity_,10); //Point
 		    if (trading_range != null)
 		    {
@@ -236,7 +236,7 @@ amount_to_sell = _inventory.query(commodity_);
 			    favorability = 1 - favorability;
 			    //do 1 - favorability to see how close we are to the low end
 
-			    double amount_to_buy = Math.Round(favorability * _inventory.shortage(commodity_));//double
+			    double amount_to_buy = Math.Round(favorability * _inventory.Shortage(commodity_));//double
 			    if (amount_to_buy < 1)
 			    {
 				    amount_to_buy = 1;

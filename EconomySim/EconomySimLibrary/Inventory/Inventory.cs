@@ -136,7 +136,7 @@ namespace EconomySim
 	     * @return
 	     */
 
-	    public double query(String good)
+	    public double Query(String good)
 	    {
 		    if (_stuff.ContainsKey(good))
 		    {
@@ -144,7 +144,7 @@ namespace EconomySim
 		    }
 		    return 0;
 	    }
-        public double query_cost(String good)
+        public double QueryCost(String good)
         {
             if (_stuff.ContainsKey(good))
             {
@@ -162,7 +162,7 @@ namespace EconomySim
 		    return 0;
 	    }
 
-	    public double getEmptySpace()
+	    public double GetEmptySpace()
 	    {
 		    return maxSize - getUsedSpace();
 	    }
@@ -178,7 +178,7 @@ namespace EconomySim
 		    return space_used;
 	    }
 
-	    public double getCapacityFor(string good)
+	    public double GetCapacityFor(string good)
 	    {
 		    if (_sizes.ContainsKey(good))
 		    {
@@ -241,9 +241,9 @@ namespace EconomySim
 	     * @return
 	     */
 
-	    public double surplus(string good)
+	    public double Surplus(string good)
 	    {
-		    var amt = query(good);
+		    var amt = Query(good);
             double ideal = 0;
             if (_ideal.ContainsKey(good))
                 ideal = _ideal[good];
@@ -260,13 +260,13 @@ namespace EconomySim
 	     * @return
 	     */
 
-	    public double shortage(string good)
+	    public double Shortage(string good)
 	    {
 		    if (!_stuff.ContainsKey(good))
 		    {
 			    return 0;
 		    }
-		    var amt = query(good);
+		    var amt = Query(good);
             double ideal = 0;
             if (_ideal.ContainsKey(good))
                 ideal = _ideal[good];

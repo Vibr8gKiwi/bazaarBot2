@@ -82,7 +82,7 @@ namespace EconomySim
 
 				    foreach (var commodity in _goodTypes)
 				    {
-					    agent.generateOffers(this, commodity);
+					    agent.GenerateOffers(this, commodity);
 				    }
 			    }
 
@@ -121,7 +121,7 @@ namespace EconomySim
 	     * @return
 	     */
 
-	    public double getAverageHistoricalPrice(String good, int range)
+	    public double GetAverageHistoricalPrice(String good, int range)
 	    {
 		    return history.prices.average(good, range);
 	    }
@@ -264,7 +264,7 @@ namespace EconomySim
 	    {
 		    if (_mapGoods.ContainsKey(str))
 		    {
-			    return _mapGoods[str].copy();
+			    return _mapGoods[str].Copy();
 		    }
 		    return null;
 	    }
@@ -353,20 +353,20 @@ namespace EconomySim
 		    //Create commodity index
 		    foreach (var g in data.goods)
 		    {
-			    _goodTypes.Add(g.id);
-			    _mapGoods[g.id] = new Good(g.id, g.size);
+			    _goodTypes.Add(g.Id);
+			    _mapGoods[g.Id] = new Good(g.Id, g.Size);
 
                 double v = 1.0;
-                if (g.id == "metal") v = 2.0;
-                if (g.id == "tools") v = 3.0;
+                if (g.Id == "metal") v = 2.0;
+                if (g.Id == "tools") v = 3.0;
 
-			    history.register(g.id);
-                history.prices.add(g.id, v);	//start the bidding at $1!
-                history.asks.add(g.id, v);	//start history charts with 1 fake buy/sell bid
-                history.bids.add(g.id, v);
-                history.trades.add(g.id, v);
+			    history.register(g.Id);
+                history.prices.add(g.Id, v);	//start the bidding at $1!
+                history.asks.add(g.Id, v);	//start history charts with 1 fake buy/sell bid
+                history.bids.add(g.Id, v);
+                history.trades.add(g.Id, v);
 
-			    _book.register(g.id);
+			    _book.register(g.Id);
 		    }
 
 		    _mapAgents = new Dictionary<String, AgentData>();
@@ -445,8 +445,8 @@ namespace EconomySim
 				    //update agent price beliefs based on successful transaction
 				    var buyer_a = _agents[buyer.agent_id];
 				    var seller_a = _agents[seller.agent_id];
-				    buyer_a.updatePriceModel(this, "buy", good, true, clearing_price);
-				    seller_a.updatePriceModel(this, "sell", good, true, clearing_price);
+				    buyer_a.UpdatePriceModel(this, "buy", good, true, clearing_price);
+				    seller_a.UpdatePriceModel(this, "sell", good, true, clearing_price);
 
 				    //log the stats
 				    moneyTraded += (quantity_traded * clearing_price);
@@ -479,14 +479,14 @@ namespace EconomySim
 		    {
 			    var buyer = bids[0];
 			    var buyer_a = _agents[buyer.agent_id];
-			    buyer_a.updatePriceModel(this,"buy",good, false);
+			    buyer_a.UpdatePriceModel(this,"buy",good, false);
 			    bids.RemoveAt(0);//.splice(0, 1);
 		    }
             while (asks.Count > 0)
 		    {
 			    var seller = asks[0];
 			    var seller_a = _agents[seller.agent_id];
-			    seller_a.updatePriceModel(this,"sell",good, false);
+			    seller_a.UpdatePriceModel(this,"sell",good, false);
                 asks.RemoveAt(0);// splice(0, 1);
 		    }
 

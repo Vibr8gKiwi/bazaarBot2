@@ -8,21 +8,18 @@ namespace EconomySim
 
     public class Good
     {
-	    //public String id = "";		//string id of good
-	    //public double size = 1.0;	//inventory size taken up
+        public string Id { get; set; }
+        public double Size { get; set; }
 
-        public string id { get; set; }
-        public double size { get; set; }
-
-	    public Good (String id_, double size_)
+	    public Good (String id, double size)
 	    {
-		    id = id_;
-		    size = size_;
+		    Id = id;
+		    Size = size;
 	    }
 
-	    public Good copy()
+	    public Good Copy()
 	    {
-		    return new Good(id, size);
+		    return new Good(Id, Size);
 	    }
     }
 }

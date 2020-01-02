@@ -4,23 +4,21 @@ using System.Linq;
 using System.Text;
 
 namespace EconomySim
-{
-
+{    
     /**
      * An agent that performs the basic logic from the Doran & Parberry article
      * @author
      */
     public class Agent : BasicAgent
     {
-
-	    public static double MIN_PRICE = 0.01;		//lowest possible price
+	    public const double MIN_PRICE = 0.01;		//lowest possible price
 
 	    public Agent(int id, AgentData data) : base(id,data)
 	    {
+
 	    }
 
-
-	    override public Offer createBid(Market bazaar, String good, double limit)
+        public override Offer CreateBid(Market bazaar, String good, double limit)
 	    {
             var bidPrice = 0;// determinePriceOf(good);  bids are now made "at market", no price determination needed
 		    var ideal = determinePurchaseQuantity(bazaar, good);
@@ -34,27 +32,27 @@ namespace EconomySim
 		    return null;
 	    }
 
-	    override public Offer createAsk(Market bazaar, String commodity_, double limit_)
+        public override Offer CreateAsk(Market bazaar, String commodity, double limit)
 	    {
-		    var ask_price = _inventory.query_cost(commodity_) * 1.02; //asks are fair prices:  costs + small profit
+		    var askPrice = _inventory.QueryCost(commodity) * 1.02; //asks are fair prices:  costs + small profit
 
-            var quantity_to_sell = _inventory.query(commodity_);//put asks out for all inventory
-            nProduct = quantity_to_sell;
+            var quantityToSell = _inventory.Query(commodity);//put asks out for all inventory
+            nProduct = quantityToSell;
 
-		    if (quantity_to_sell > 0)
+		    if (quantityToSell > 0)
 		    {
-			    return new Offer(id, commodity_, quantity_to_sell, ask_price);
+			    return new Offer(id, commodity, quantityToSell, askPrice);
 		    }
 		    return null;
 	    }
 
-	    override public void generateOffers(Market bazaar, String commodity)
+	    public override void GenerateOffers(Market bazaar, String commodity)
 	    {
 		    Offer offer;
-		    double surplus = _inventory.surplus(commodity);
+		    double surplus = _inventory.Surplus(commodity);
 		    if (surplus >= 1)
 		    {
-			     offer = createAsk(bazaar, commodity, 1);
+			     offer = CreateAsk(bazaar, commodity, 1);
 			     if (offer != null)
 			     {
 				    bazaar.ask(offer);
@@ -62,14 +60,14 @@ namespace EconomySim
 		    }
 		    else
 		    {
-			    var shortage = _inventory.shortage(commodity);
-			    var space = _inventory.getEmptySpace();
-			    var unit_size = _inventory.getCapacityFor(commodity);
+			    var shortage = _inventory.Shortage(commodity);
+			    var space = _inventory.GetEmptySpace();
+			    var unitSize = _inventory.GetCapacityFor(commodity);
 
-			    if (shortage > 0 && space >= unit_size)
+			    if (shortage > 0 && space >= unitSize)
 			    {
 				    double limit = 0;
-				    if ((shortage * unit_size) <= space)	//enough space for ideal order
+				    if ((shortage * unitSize) <= space)	//enough space for ideal order
 				    {
 					    limit = shortage;
 				    }
@@ -80,7 +78,7 @@ namespace EconomySim
 
 				    if (limit > 0)
 				    {
-					    offer = createBid(bazaar, commodity, limit);
+					    offer = CreateBid(bazaar, commodity, limit);
 					    if (offer != null)
 					    {
 						    bazaar.bid(offer);
@@ -90,7 +88,7 @@ namespace EconomySim
 		    }
 	    }
 
-	    override public void updatePriceModel(Market bazaar, String act, String good, bool success, double unitPrice= 0)
+        public override void UpdatePriceModel(Market bazaar, String act, String good, bool success, double unitPrice = 0)
 	    {
 		    List<double> observed_trades;
 
@@ -101,7 +99,7 @@ namespace EconomySim
 			    observed_trades.Add(unitPrice);
 		    }
 
-		    var public_mean_price = bazaar.getAverageHistoricalPrice(good, 1);
+		    var publicMeanPrice = bazaar.GetAverageHistoricalPrice(good, 1);
 
 	    }
     }
