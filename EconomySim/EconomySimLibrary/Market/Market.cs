@@ -123,7 +123,7 @@ namespace EconomySim
 
 	    public double GetAverageHistoricalPrice(String good, int range)
 	    {
-		    return history.prices.average(good, range);
+		    return history.Prices.Average(good, range);
 	    }
 
 	    /**
@@ -139,8 +139,8 @@ namespace EconomySim
             double best_ratio = -99999;// Math.NEGATIVE_INFINITY;
 		    foreach (var good in _goodTypes)
 		    {
-			    var asks = history.asks.average(good, range);
-			    var bids = history.bids.average(good, range);
+			    var asks = history.Asks.Average(good, range);
+			    var bids = history.Bids.Average(good, range);
 
 			    double ratio = 0;
 			    if (asks == 0 && bids > 0)
@@ -177,7 +177,7 @@ namespace EconomySim
 		    {
 			    if (exclude == null || !exclude.Contains(g))
 			    {
-				    double price = history.prices.average(g, range);
+				    double price = history.Prices.Average(g, range);
 				    if (price < best_price)
 				    {
 					    best_price = price;
@@ -203,7 +203,7 @@ namespace EconomySim
 		    {
 			    if (exclude == null || !exclude.Contains(g))
 			    {
-				    var price = history.prices.average(g, range);
+				    var price = history.Prices.Average(g, range);
 				    if (price > best_price)
 				    {
 					    best_price = price;
@@ -225,7 +225,7 @@ namespace EconomySim
 		    String bestClass="";
 		    foreach (var className in _mapAgents.Keys)
 		    {
-			    double val = history.profit.average(className, range);
+			    double val = history.Profit.Average(className, range);
 			    if (val > best)
 			    {
 				    bestClass = className;
@@ -291,16 +291,16 @@ namespace EconomySim
 		    {
 			    mr.strListGood += commodity + "\n";
 
-			    var price = history.prices.average(commodity, rounds);
+			    var price = history.Prices.Average(commodity, rounds);
 			    mr.strListGoodPrices += Quick.numStr(price, 2) + "\n";
 
-			    var asks = history.asks.average(commodity, rounds);
+			    var asks = history.Asks.Average(commodity, rounds);
 			    mr.strListGoodAsks += (int)(asks) + "\n";
 
-			    var bids = history.bids.average(commodity, rounds);
+			    var bids = history.Bids.Average(commodity, rounds);
 			    mr.strListGoodBids += (int)(bids) + "\n";
 
-			    var trades = history.trades.average(commodity, rounds);
+			    var trades = history.Trades.Average(commodity, rounds);
 			    mr.strListGoodTrades += (int)(trades) + "\n";
 
 			    mr.arrStrListInventory.Add(commodity + "\n\n");
@@ -313,7 +313,7 @@ namespace EconomySim
 				    inventory.Add(0);
 			    }
 			    mr.strListAgent += key + "\n";
-			    var profit = history.profit.average(key, rounds);
+			    var profit = history.Profit.Average(key, rounds);
 			    mr.strListAgentProfit += Quick.numStr(profit, 2) + "\n";
 
 			    double test_profit = 0;
@@ -361,11 +361,11 @@ namespace EconomySim
                 if (g.Id == "metal") v = 2.0;
                 if (g.Id == "tools") v = 3.0;
 
-			    history.register(g.Id);
-                history.prices.add(g.Id, v);	//start the bidding at $1!
-                history.asks.add(g.Id, v);	//start history charts with 1 fake buy/sell bid
-                history.bids.add(g.Id, v);
-                history.trades.add(g.Id, v);
+			    history.Register(g.Id);
+                history.Prices.Add(g.Id, v);	//start the bidding at $1!
+                history.Asks.Add(g.Id, v);	//start history charts with 1 fake buy/sell bid
+                history.Bids.Add(g.Id, v);
+                history.Trades.Add(g.Id, v);
 
 			    _book.register(g.Id);
 		    }
@@ -375,7 +375,7 @@ namespace EconomySim
 		    foreach (var aData in data.agentTypes)
 		    {
 			    _mapAgents[aData.ClassName] = aData;
-			    history.profit.register(aData.ClassName);
+			    history.Profit.Register(aData.ClassName);
 		    }
 
 		    //Make the agent list
@@ -493,20 +493,20 @@ namespace EconomySim
 
 		    //update history
 
-		    history.asks.add(good, numAsks);
-		    history.bids.add(good, numBids);
-		    history.trades.add(good, unitsTraded);
+		    history.Asks.Add(good, numAsks);
+		    history.Bids.Add(good, numBids);
+		    history.Trades.Add(good, unitsTraded);
 
 		    if (unitsTraded > 0)
 		    {
 			    avgPrice = moneyTraded / (double)unitsTraded;
-			    history.prices.add(good, avgPrice);
+			    history.Prices.Add(good, avgPrice);
 		    }
 		    else
 		    {
 			    //special case: none were traded this round, use last round's average price
-			    history.prices.add(good, history.prices.average(good, 1));
-			    avgPrice = history.prices.average(good,1);
+			    history.Prices.Add(good, history.Prices.Average(good, 1));
+			    avgPrice = history.Prices.Average(good,1);
 		    }
 
             List<BasicAgent> ag = _agents.ToList<BasicAgent>();
@@ -526,7 +526,7 @@ namespace EconomySim
 				    if (list != null)				//do we have a list built up?
 				    {
 					    //log last class' profit
-					    history.profit.add(last_class, Quick.listAvgf(list));
+					    history.Profit.Add(last_class, Quick.listAvgf(list));
 				    }
 				    list = new List<double>();		//make a new list
 				    last_class = curr_class;
@@ -535,7 +535,7 @@ namespace EconomySim
 		    }
 
 		    //add the last class too
-		    history.profit.add(last_class, Quick.listAvgf(list));
+		    history.Profit.Add(last_class, Quick.listAvgf(list));
 
 		    //sort by id so everything works again
 		    //_agents.Sort(Quick.sortAgentId);

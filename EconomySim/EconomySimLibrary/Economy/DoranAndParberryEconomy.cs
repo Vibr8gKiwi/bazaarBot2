@@ -215,12 +215,12 @@ namespace EconomySim
         {
             switch (str)
             {
-                case "blacksmith": return new LogicBlacksmith();
-                case "farmer": return new LogicFarmer();
-                case "miner": return new LogicMiner();
-                case "refiner": return new LogicRefiner();
-                case "woodcutter": return new LogicWoodcutter();
-                case "worker": return new LogicWorker();
+                case "blacksmith": return new BlacksmithLogic();
+                case "farmer": return new FarmerLogic();
+                case "miner": return new MinerLogic();
+                case "refiner": return new RefinerLogic();
+                case "woodcutter": return new WoodcutterLogic();
+                case "worker": return new WorkerLogic();
             }
             return null;
         }

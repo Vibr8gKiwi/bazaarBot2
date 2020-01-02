@@ -11,16 +11,16 @@ namespace EconomySim
 
 	    //private static var _index:Map<String, Commodity>;
 
-	    private Dictionary<String, Point>_stuff;		// key:commodity_id, val:amount, original_cost
-	    private Dictionary<String, double>_ideal;		// ideal counts for each thing
-	    private Dictionary<String, double>_sizes;		// how much space each thing takes up
+	    private Dictionary<String, Point> stuff;		// key:commodity_id, val:amount, original_cost
+	    private Dictionary<String, double> ideal;		// ideal counts for each thing
+	    private Dictionary<String, double> sizes;		// how much space each thing takes up
 
 
 	    public Inventory()
 	    {
-		    _sizes = new Dictionary<String, double>();
-		    _stuff = new Dictionary<String, Point>();
-		    _ideal = new Dictionary<String, double>();
+		    sizes = new Dictionary<String, double>();
+		    stuff = new Dictionary<String, Point>();
+		    ideal = new Dictionary<String, double>();
 		    maxSize = 0;
 	    }
 
@@ -28,70 +28,71 @@ namespace EconomySim
 	    {
 		    var sizes = new List<string>();
 		    var amountsp = new List<Point>();
-		    foreach (string key in data.start.Keys)
+		    foreach (string key in data.Start.Keys)
 		    {
 			    sizes.Add(key);
-			    amountsp.Add(new Point(data.start[key],0));
+			    amountsp.Add(new Point(data.Start[key],0));
 		    }
-		    setStuff(sizes, amountsp);
+		    SetStuff(sizes, amountsp);
 		    sizes = new List<string>();
 		    var amounts = new List<double>();
-		    foreach (string key in data.size.Keys)
+		    foreach (string key in data.Size.Keys)
 		    {
 			    sizes.Add(key);
-			    amounts.Add(data.size[key]);
+			    amounts.Add(data.Size[key]);
 		    }
-		    setSizes(sizes, amounts);
+		    SetSizes(sizes, amounts);
 		    sizes = new List<string>();
 		    amounts = new List<double>();
-		    foreach (string key in data.ideal.Keys)
+		    foreach (string key in data.Ideal.Keys)
 		    {
 			    sizes.Add(key);
-			    amounts.Add(data.ideal[key]);
-			    setIdeal(sizes, amounts);
+			    amounts.Add(data.Ideal[key]);
+			    SetIdeal(sizes, amounts);
 		    }
-		    maxSize = data.maxSize;
+		    maxSize = data.MaxSize;
 	    }
 
-	    public Inventory copy()
+	    public Inventory Copy()
 	    {
 		    var i = new Inventory();
+            //TODO: improve these names
 		    var stufff = new List<Point>();
 		    var stuffi = new List<String>();
 		    var idealf = new List<double>();
 		    var ideali = new List<String>();
 		    var sizesf = new List<double>();
 		    var sizesi = new List<String>();
-		    foreach (string key in _stuff.Keys)
+		    foreach (string key in stuff.Keys)
 		    {
-			    stufff.Add(_stuff[key]);
+			    stufff.Add(stuff[key]);
 			    stuffi.Add(key);
 		    }
-		    foreach (string key in _ideal.Keys)
+		    foreach (string key in ideal.Keys)
 		    {
-			    idealf.Add(_ideal[key]);
+			    idealf.Add(ideal[key]);
 			    ideali.Add(key);
 		    }
-		    foreach (string key in _sizes.Keys)
+		    foreach (string key in sizes.Keys)
 		    {
-			    sizesf.Add(_sizes[key]);
+			    sizesf.Add(sizes[key]);
 			    sizesi.Add(key);
 		    }
-		    i.setStuff(stuffi, stufff);
-		    i.setIdeal(ideali, idealf);
-		    i.setSizes(sizesi, sizesf);
+		    i.SetStuff(stuffi, stufff);
+		    i.SetIdeal(ideali, idealf);
+		    i.SetSizes(sizesi, sizesf);
 		    i.maxSize = maxSize;
 		    return i;
 	    }
 
 	    public void Destroy()
 	    {
-            _stuff.Clear();
-            _ideal.Clear();
-            _sizes.Clear();
-		    _stuff = null;
-		    _ideal = null;
-		    _sizes = null;
+            stuff.Clear();
+            ideal.Clear();
+            sizes.Clear();
+		    stuff = null;
+		    ideal = null;
+		    sizes = null;
 	    }
 
 	    /**
@@ -100,11 +101,11 @@ namespace EconomySim
 	     * @param	amounts_
 	     */
 
-	    public void setStuff(List<String>stuff, List<Point>amounts)
+	    public void SetStuff(List<String>stuff, List<Point>amounts)
 	    {
 		    for (int i=0; i<stuff.Count; i++)
 		    {
-			    _stuff[stuff[i]] = amounts[i];
+			    this.stuff[stuff[i]] = amounts[i];
 		    }
 	    }
 
@@ -114,19 +115,19 @@ namespace EconomySim
 	     * @param	amounts_
 	     */
 
-	    public void setIdeal(List<String>ideal, List<double>amounts)
+	    public void SetIdeal(List<String>ideal, List<double>amounts)
 	    {
 		    for (int i=0; i<ideal.Count; i++)
 		    {
-			    _ideal[ideal[i]] = amounts[i];
+			    this.ideal[ideal[i]] = amounts[i];
 		    }
 	    }
 
-	    public void setSizes(List<String>sizes, List<double>amounts)
+	    public void SetSizes(List<String>sizes, List<double>amounts)
 	    {
 		    for(int i=0; i<sizes.Count; i++)
 		    {
-			    _sizes[sizes[i]] = amounts[i];
+			    this.sizes[sizes[i]] = amounts[i];
 		    }
 	    }
 
@@ -138,51 +139,51 @@ namespace EconomySim
 
 	    public double Query(String good)
 	    {
-		    if (_stuff.ContainsKey(good))
+		    if (stuff.ContainsKey(good))
 		    {
-			    return _stuff[good].x;
+			    return stuff[good].x;
 		    }
 		    return 0;
 	    }
         public double QueryCost(String good)
         {
-            if (_stuff.ContainsKey(good))
+            if (stuff.ContainsKey(good))
             {
-                return _stuff[good].y;
+                return stuff[good].y;
             }
             return 0;
         }
 
-	    public double ideal(String good)
+	    public double Ideal(String good)
 	    {
-		    if (_ideal.ContainsKey(good))
+		    if (ideal.ContainsKey(good))
 		    {
-			    return _ideal[good];
+			    return ideal[good];
 		    }
 		    return 0;
 	    }
 
 	    public double GetEmptySpace()
 	    {
-		    return maxSize - getUsedSpace();
+		    return maxSize - GetUsedSpace();
 	    }
 
-	    public double getUsedSpace()
+	    public double GetUsedSpace()
 	    {
 		    double space_used = 0;
-		    foreach (string key in _stuff.Keys)
+		    foreach (string key in stuff.Keys)
 		    {
-                if (!_sizes.ContainsKey(key)) continue;
-			    space_used += _stuff[key].x * _sizes[key];
+                if (!sizes.ContainsKey(key)) continue;
+			    space_used += stuff[key].x * sizes[key];
 		    }
 		    return space_used;
 	    }
 
 	    public double GetCapacityFor(string good)
 	    {
-		    if (_sizes.ContainsKey(good))
+		    if (sizes.ContainsKey(good))
 		    {
-			    return _sizes[good];
+			    return sizes[good];
 		    }
 		    return -1;
 	    }
@@ -193,13 +194,13 @@ namespace EconomySim
 	     * @param	delta_ amount added
 	     */
 
-	    public double change(string good, double delta, double unit_cost)
+	    public double Change(string good, double delta, double unit_cost)
 	    {
 		    Point result = new Point(0,0);
 
-		    if (_stuff.ContainsKey(good))
+		    if (stuff.ContainsKey(good))
 		    {
-			    var amount = _stuff[good];
+			    var amount = stuff[good];
                 if (unit_cost > 0)
                 {
                     if (amount.x <= 0)
@@ -231,7 +232,7 @@ namespace EconomySim
                 result.y = 0;
 		    }
 
-		    _stuff[good] = result;
+		    stuff[good] = result;
             return result.y; //return current unit cost
 	    }
 
@@ -245,8 +246,8 @@ namespace EconomySim
 	    {
 		    var amt = Query(good);
             double ideal = 0;
-            if (_ideal.ContainsKey(good))
-                ideal = _ideal[good];
+            if (this.ideal.ContainsKey(good))
+                ideal = this.ideal[good];
 		    if (amt > ideal)
 		    {
 			    return (amt - ideal);
@@ -262,14 +263,14 @@ namespace EconomySim
 
 	    public double Shortage(string good)
 	    {
-		    if (!_stuff.ContainsKey(good))
+		    if (!stuff.ContainsKey(good))
 		    {
 			    return 0;
 		    }
 		    var amt = Query(good);
             double ideal = 0;
-            if (_ideal.ContainsKey(good))
-                ideal = _ideal[good];
+            if (this.ideal.ContainsKey(good))
+                ideal = this.ideal[good];
 		    if (amt < ideal)
 		    {
 			    return (ideal - amt);

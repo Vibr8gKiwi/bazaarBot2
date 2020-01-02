@@ -123,7 +123,7 @@ namespace EconomySim
             if (TrackCosts < 1)
                 TrackCosts = 1;
 
-            double curunitcost = Inventory.change(good, delta, TrackCosts / delta);
+            double curunitcost = Inventory.Change(good, delta, TrackCosts / delta);
             TrackCosts = 0;
 	    }
 
@@ -137,7 +137,7 @@ namespace EconomySim
             }
             else
             {
-                double curunitcost = Inventory.change(good, delta, 0);
+                double curunitcost = Inventory.Change(good, delta, 0);
                 if (delta < 0)
                     TrackCosts += (-delta) * curunitcost;
             }
@@ -151,7 +151,7 @@ namespace EconomySim
             }
             else
             {
-                Inventory.change(good, delta, unit_cost);
+                Inventory.Change(good, delta, unit_cost);
             }
         }
 
