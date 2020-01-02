@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EconomySimLibrary", "Econom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EconomySimTests", "EconomySimTests\EconomySimTests.csproj", "{BE92EAC0-1E6D-48B5-8F75-610C21AC0B68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EconomyBuilderWPF", "EconomyBuilderWPF\EconomyBuilderWPF.csproj", "{17CCD776-374A-4C52-8DC3-A06C20E5753C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,14 @@ Global
 		{BE92EAC0-1E6D-48B5-8F75-610C21AC0B68}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE92EAC0-1E6D-48B5-8F75-610C21AC0B68}.Release|x86.ActiveCfg = Release|Any CPU
 		{BE92EAC0-1E6D-48B5-8F75-610C21AC0B68}.Release|x86.Build.0 = Release|Any CPU
+		{17CCD776-374A-4C52-8DC3-A06C20E5753C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17CCD776-374A-4C52-8DC3-A06C20E5753C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17CCD776-374A-4C52-8DC3-A06C20E5753C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{17CCD776-374A-4C52-8DC3-A06C20E5753C}.Debug|x86.Build.0 = Debug|Any CPU
+		{17CCD776-374A-4C52-8DC3-A06C20E5753C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17CCD776-374A-4C52-8DC3-A06C20E5753C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17CCD776-374A-4C52-8DC3-A06C20E5753C}.Release|x86.ActiveCfg = Release|Any CPU
+		{17CCD776-374A-4C52-8DC3-A06C20E5753C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
