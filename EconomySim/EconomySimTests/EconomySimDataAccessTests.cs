@@ -8,9 +8,10 @@ namespace EconomySimTests
     public class EconomySimDataAccessTests
     {
         [TestMethod]
-        public void CreateDatabase()
+        public void TestInsert()
         {
             //Arrange
+            EconomySimDbContext.DoInsert();
 
             //Act
 

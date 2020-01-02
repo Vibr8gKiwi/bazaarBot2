@@ -8,8 +8,11 @@ namespace EconomySim
 
     public class Good
     {
-	    public String id = "";		//string id of good
-	    public double size = 1.0;	//inventory size taken up
+	    //public String id = "";		//string id of good
+	    //public double size = 1.0;	//inventory size taken up
+
+        public string id { get; set; }
+        public double size { get; set; }
 
 	    public Good (String id_, double size_)
 	    {
