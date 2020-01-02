@@ -26,7 +26,7 @@ namespace EconomySim
 	    {
 		    foreach (var m in markets)
 		    {
-			    if (m.name == name) return m;
+			    if (m.Name == name) return m;
 		    }
 		    return null;
 	    }
@@ -35,7 +35,7 @@ namespace EconomySim
 	    {
 		    foreach (var m in markets)
 		    {
-			    m.simulate(rounds);
+			    m.Simulate(rounds);
 		    }
 	    }
 

@@ -87,7 +87,7 @@ namespace EconomySim
 
             market = economy.GetMarket("default");
 
-            dataGridView1.DataSource = market._agents;
+            dataGridView1.DataSource = market.agents;
             //dataGridView2.DataSource = market._book.dbook;
 
         }
@@ -96,8 +96,8 @@ namespace EconomySim
         {
             iterationCount += rounds; 
 
-            market.simulate(rounds);
-            var res = market.get_marketReport(rounds);
+            market.Simulate(rounds);
+            var res = market.GetMarketReport(rounds);
             dataGridView1.Refresh();
             //dataGridView2.DataSource = res.arrStrListInventory;
             textBox1.Clear();

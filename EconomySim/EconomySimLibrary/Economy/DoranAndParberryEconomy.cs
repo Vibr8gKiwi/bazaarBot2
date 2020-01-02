@@ -133,8 +133,8 @@ namespace EconomySim
 			    }
 		    }
 
-		    var newAgent = getAgent(market.getAgentClass(bestClass));
-		    market.replaceAgent(agent, newAgent);
+		    var newAgent = getAgent(market.GetAgentClass(bestClass));
+		    market.ReplaceAgent(agent, newAgent);
 	    }
 
 

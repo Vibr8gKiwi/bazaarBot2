@@ -55,7 +55,7 @@ namespace EconomySim
 			     offer = CreateAsk(bazaar, commodity, 1);
 			     if (offer != null)
 			     {
-				    bazaar.ask(offer);
+				    bazaar.Ask(offer);
 			     }
 		    }
 		    else
@@ -81,7 +81,7 @@ namespace EconomySim
 					    offer = CreateBid(bazaar, commodity, limit);
 					    if (offer != null)
 					    {
-						    bazaar.bid(offer);
+						    bazaar.Bid(offer);
 					    }
 				    }
 			    }
