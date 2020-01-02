@@ -21,27 +21,27 @@ namespace EconomySim
         public override Offer CreateBid(Market bazaar, String good, double limit)
 	    {
             var bidPrice = 0;// determinePriceOf(good);  bids are now made "at market", no price determination needed
-		    var ideal = determinePurchaseQuantity(bazaar, good);
+		    var ideal = DeterminePurchaseQuantity(bazaar, good);
 
 		    //can't buy more than limit
 		    double quantityToBuy = ideal > limit ? limit : ideal;
 		    if (quantityToBuy > 0)
 		    {
-			    return new Offer(id, good, quantityToBuy, bidPrice);
+			    return new Offer(Id, good, quantityToBuy, bidPrice);
 		    }
 		    return null;
 	    }
 
         public override Offer CreateAsk(Market bazaar, String commodity, double limit)
 	    {
-		    var askPrice = _inventory.QueryCost(commodity) * 1.02; //asks are fair prices:  costs + small profit
+		    var askPrice = Inventory.QueryCost(commodity) * 1.02; //asks are fair prices:  costs + small profit
 
-            var quantityToSell = _inventory.Query(commodity);//put asks out for all inventory
-            nProduct = quantityToSell;
+            var quantityToSell = Inventory.Query(commodity);//put asks out for all inventory
+            NProduct = quantityToSell;
 
 		    if (quantityToSell > 0)
 		    {
-			    return new Offer(id, commodity, quantityToSell, askPrice);
+			    return new Offer(Id, commodity, quantityToSell, askPrice);
 		    }
 		    return null;
 	    }
@@ -49,7 +49,7 @@ namespace EconomySim
 	    public override void GenerateOffers(Market bazaar, String commodity)
 	    {
 		    Offer offer;
-		    double surplus = _inventory.Surplus(commodity);
+		    double surplus = Inventory.Surplus(commodity);
 		    if (surplus >= 1)
 		    {
 			     offer = CreateAsk(bazaar, commodity, 1);
@@ -60,9 +60,9 @@ namespace EconomySim
 		    }
 		    else
 		    {
-			    var shortage = _inventory.Shortage(commodity);
-			    var space = _inventory.GetEmptySpace();
-			    var unitSize = _inventory.GetCapacityFor(commodity);
+			    var shortage = Inventory.Shortage(commodity);
+			    var space = Inventory.GetEmptySpace();
+			    var unitSize = Inventory.GetCapacityFor(commodity);
 
 			    if (shortage > 0 && space >= unitSize)
 			    {
@@ -95,7 +95,7 @@ namespace EconomySim
 		    if (success)
 		    {
 			    //Add this to my list of observed trades
-			    observed_trades = _observedTradingRange[good];
+			    observed_trades = ObservedTradingRange[good];
 			    observed_trades.Add(unitPrice);
 		    }
 

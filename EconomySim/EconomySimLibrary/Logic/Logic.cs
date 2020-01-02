@@ -19,7 +19,7 @@ namespace EconomySim
 	     * @param	agent
 	     */
 
-	    public virtual void perform(BasicAgent agent, Market market)
+	    public virtual void Perform(BasicAgent agent, Market market)
 	    {
 		    //no implemenation -- provide your own in a subclass
 	    }
@@ -28,7 +28,7 @@ namespace EconomySim
 	    {
 		    if (chance >= 1.0 || Quick.rnd.NextDouble() < chance)
 		    {
-			    agent.produceInventory(commodity, amount);
+			    agent.ProduceInventory(commodity, amount);
 		    }
 	    }
 
@@ -43,7 +43,7 @@ namespace EconomySim
                 //}
                 //else
                 //{
-				    agent.consumeInventory(commodity, -amount);
+				    agent.ConsumeInventory(commodity, -amount);
                 //}
 		    }
 	    }
@@ -52,11 +52,11 @@ namespace EconomySim
 
     class LogicBlacksmith : Logic
     {
-        override public void perform(BasicAgent agent, Market market)
+        override public void Perform(BasicAgent agent, Market market)
         {
-            var food = agent.queryInventory("food");
-            var metal = agent.queryInventory("metal");
-            var tools = agent.queryInventory("tools");
+            var food = agent.QueryInventory("food");
+            var metal = agent.QueryInventory("metal");
+            var tools = agent.QueryInventory("tools");
             var need_tools = tools < 4;
 
             var has_food = food >= 1;
@@ -75,7 +75,7 @@ namespace EconomySim
             {
                 //fined $2 for being idle
                 //_consume(agent, "money", 2);
-                if (!has_food && agent.get_inventoryFull())
+                if (!has_food && agent.GetInventoryFull())
                 {
                     //make_room_for(agent, "food", 2); stub todo needed?
                 }
@@ -85,13 +85,13 @@ namespace EconomySim
 
     class LogicFarmer : Logic
     {
-        override public void perform(BasicAgent agent, Market market)
+        override public void Perform(BasicAgent agent, Market market)
         {
-            var wood = agent.queryInventory("wood");
-            var tools = agent.queryInventory("tools");
-            var food = agent.queryInventory("food");
+            var wood = agent.QueryInventory("wood");
+            var tools = agent.QueryInventory("tools");
+            var food = agent.QueryInventory("food");
             var need_food = food < 10;
-            var work = agent.queryInventory("work");
+            var work = agent.QueryInventory("work");
 
             var has_wood = wood >= 1;
             var has_tools = tools >= 1;
@@ -133,11 +133,11 @@ namespace EconomySim
 
     class LogicMiner : Logic
     {
-        override public void perform(BasicAgent agent, Market market)
+        override public void Perform(BasicAgent agent, Market market)
         {
-            var food = agent.queryInventory("food");
-            var tools = agent.queryInventory("tools");
-            var ore = agent.queryInventory("ore");
+            var food = agent.QueryInventory("food");
+            var tools = agent.QueryInventory("tools");
+            var ore = agent.QueryInventory("ore");
             var need_ore = ore < 4;
 
             var has_food = food >= 1;
@@ -166,7 +166,7 @@ namespace EconomySim
             {
                 //fined $2 for being idle
                 //_consume(agent, "money", 2);
-                if (!has_food && agent.get_inventoryFull())
+                if (!has_food && agent.GetInventoryFull())
                 {
                     //make_room_for(agent,"food",2);
                 }
@@ -176,13 +176,13 @@ namespace EconomySim
 
     class LogicRefiner : Logic
     {
-        override public void perform(BasicAgent agent, Market market)
+        override public void Perform(BasicAgent agent, Market market)
         {
-            var food = agent.queryInventory("food");
-            var tools = agent.queryInventory("tools");
-            var ore = agent.queryInventory("ore");
+            var food = agent.QueryInventory("food");
+            var tools = agent.QueryInventory("tools");
+            var ore = agent.QueryInventory("ore");
             if (ore > 4) ore = 4;
-            var metal = agent.queryInventory("metal");
+            var metal = agent.QueryInventory("metal");
             var need_metal = metal < 4;
 
             var has_food = food >= 1;
@@ -205,7 +205,7 @@ namespace EconomySim
                 else
                 {
                     //convert up to 2 ore into metal, consume 1 food
-                    var max = agent.queryInventory("ore");
+                    var max = agent.QueryInventory("ore");
                     if (max > 2) { max = 2; }
                     _consume(agent, "ore", max);
                     _consume(agent, "food", 1);
@@ -216,7 +216,7 @@ namespace EconomySim
             {
                 //fined $2 for being idle
                 //_consume(agent, "money", 2);
-                if (!has_food && agent.get_inventoryFull())
+                if (!has_food && agent.GetInventoryFull())
                 {
                     //make_room_for(agent, "food", 2);
                 }
@@ -226,11 +226,11 @@ namespace EconomySim
 
     class LogicWoodcutter : Logic
     {
-        override public void perform(BasicAgent agent, Market market)
+        override public void Perform(BasicAgent agent, Market market)
         {
-            var food = agent.queryInventory("food");
-            var tools = agent.queryInventory("tools");
-            var wood = agent.queryInventory("wood");
+            var food = agent.QueryInventory("food");
+            var tools = agent.QueryInventory("tools");
+            var wood = agent.QueryInventory("wood");
             var need_wood = wood < 4;
 
             var has_food = food >= 1;
@@ -259,7 +259,7 @@ namespace EconomySim
             {
                 //fined $2 for being idle
                 //_consume(agent, "money", 2);
-                if (!has_food && agent.get_inventoryFull())
+                if (!has_food && agent.GetInventoryFull())
                 {
                     //make_room_for(agent, "food", 2);
                 }
@@ -269,11 +269,11 @@ namespace EconomySim
 
     class LogicWorker : Logic
     {
-        override public void perform(BasicAgent agent, Market market)
+        override public void Perform(BasicAgent agent, Market market)
         {
-            var food = agent.queryInventory("food");
+            var food = agent.QueryInventory("food");
             var has_food = food >= 1;
-            var work = agent.queryInventory("work");
+            var work = agent.QueryInventory("work");
             var need_work = work < 1;
 
             _consume(agent, "food", 1);

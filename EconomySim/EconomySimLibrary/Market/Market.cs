@@ -64,10 +64,10 @@ namespace EconomySim
 
 	    public void replaceAgent(BasicAgent oldAgent, BasicAgent newAgent)
 	    {
-		    newAgent.id = oldAgent.id;
-		    _agents[oldAgent.id] = newAgent;
-		    oldAgent.destroy();
-		    newAgent.init(this);
+		    newAgent.Id = oldAgent.Id;
+		    _agents[oldAgent.Id] = newAgent;
+		    oldAgent.Destroy();
+		    newAgent.Init(this);
 	    }
 
 	    //@:access(bazaarbot.agent.BasicAgent)    //dfs stub ????
@@ -77,8 +77,8 @@ namespace EconomySim
 		    {
 			    foreach (var agent in _agents)
 			    {
-				    agent.moneyLastRound = agent.money;
-				    agent.simulate(this);
+				    agent.MoneyLastRound = agent.Money;
+				    agent.Simulate(this);
 
 				    foreach (var commodity in _goodTypes)
 				    {
@@ -93,7 +93,7 @@ namespace EconomySim
                 var del = new List<BasicAgent>();
 			    foreach (var agent in _agents)
 			    {
-                    if (agent.money <= 0) del.Add(agent);  
+                    if (agent.Money <= 0) del.Add(agent);  
 			    }
                 while (del.Count > 0)
                 {
@@ -255,7 +255,8 @@ namespace EconomySim
             return new List<String>(_goodTypes);
 	    }
 
-	    public List<String> getGoods_unsafe()
+        // TODO: why is this unsafe????
+	    public List<String> GetGoodsUnsafe()
 	    {
 		    return _goodTypes;
 	    }
@@ -322,13 +323,13 @@ namespace EconomySim
 
 			    foreach (var a in list)
 			    {
-                    if (a.className==key)
+                    if (a.ClassName==key)
                     {
                         count++;
-				        money += a.money;
+				        money += a.Money;
 				        for (int lic=0; lic<_goodTypes.Count; lic++)
 				        {
-					        inventory[lic] += a.queryInventory(_goodTypes[lic]);
+					        inventory[lic] += a.QueryInventory(_goodTypes[lic]);
 				        }
                     }
 			    }
@@ -373,8 +374,8 @@ namespace EconomySim
 
 		    foreach (var aData in data.agentTypes)
 		    {
-			    _mapAgents[aData.className] = aData;
-			    history.profit.register(aData.className);
+			    _mapAgents[aData.ClassName] = aData;
+			    history.profit.register(aData.ClassName);
 		    }
 
 		    //Make the agent list
@@ -383,8 +384,8 @@ namespace EconomySim
 		    var agentIndex = 0;
 		    foreach (var agent in data.agents)
 		    {
-			    agent.id = agentIndex;
-			    agent.init(this);
+			    agent.Id = agentIndex;
+			    agent.Init(this);
 			    _agents.Add(agent);
 			    agentIndex++;
 		    }
@@ -519,7 +520,7 @@ namespace EconomySim
 		    for (int i=0;i<ag.Count; i++)
 		    {
 			    var a = ag[i];		//get current agent
-			    curr_class = a.className;			//check its class
+			    curr_class = a.ClassName;			//check its class
 			    if (curr_class != last_class)		//new class?
 			    {
 				    if (list != null)				//do we have a list built up?
@@ -530,7 +531,7 @@ namespace EconomySim
 				    list = new List<double>();		//make a new list
 				    last_class = curr_class;
 			    }
-			    list.Add(a.get_profit());			//push profit onto list
+			    list.Add(a.GetProfit());			//push profit onto list
 		    }
 
 		    //add the last class too
@@ -545,16 +546,16 @@ namespace EconomySim
 	    {
 		    var seller = _agents[seller_id];
 		    var  buyer = _agents[buyer_id];
-		    seller.changeInventory(good, -units, 0);
-		     buyer.changeInventory(good,  units, clearing_price);
+		    seller.ChangeInventory(good, -units, 0);
+		     buyer.ChangeInventory(good,  units, clearing_price);
 	    }
 
 	    private void transferMoney(double amount, int seller_id, int buyer_id)
 	    {
 		    var seller = _agents[seller_id];
 		    var  buyer = _agents[buyer_id];
-		    seller.money += amount;
-		     buyer.money -= amount;
+		    seller.Money += amount;
+		     buyer.Money -= amount;
 	    }
 
     }

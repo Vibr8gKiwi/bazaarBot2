@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agent\Agent.cs" />
+    <Compile Include="Agent\AgentData.cs" />
     <Compile Include="Agent\BasicAgent.cs" />
     <Compile Include="Economy\Economy.cs" />
     <Compile Include="Economy\MyEconomy.cs" />

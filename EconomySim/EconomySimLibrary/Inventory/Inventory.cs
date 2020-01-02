@@ -24,7 +24,7 @@ namespace EconomySim
 		    maxSize = 0;
 	    }
 
-	    public void fromData(InventoryData data)
+	    public void FromData(InventoryData data)
 	    {
 		    var sizes = new List<string>();
 		    var amountsp = new List<Point>();
@@ -84,7 +84,7 @@ namespace EconomySim
 		    return i;
 	    }
 
-	    public void destroy()
+	    public void Destroy()
 	    {
             _stuff.Clear();
             _ideal.Clear();

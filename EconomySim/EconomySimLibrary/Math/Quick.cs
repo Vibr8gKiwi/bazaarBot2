@@ -5,7 +5,18 @@ using System.Text;
 
 namespace EconomySim
 {
-    class Quick
+    public class Point
+    {
+        public double x;
+        public double y;
+        public Point(double x, double y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    public class Quick
     {
         public static Random rnd = new Random();
 
@@ -149,13 +160,13 @@ namespace EconomySim
 
         public static int sortAgentAlpha(BasicAgent a, BasicAgent b)
         {
-            return String.Compare(a.className,b.className);
+            return String.Compare(a.ClassName,b.ClassName);
         }
 
         public static int sortAgentId(BasicAgent a, BasicAgent b)
         {
-            if (a.id < b.id) return -1;
-            if (a.id > b.id) return 1;
+            if (a.Id < b.Id) return -1;
+            if (a.Id > b.Id) return 1;
             return 0;
         }
 

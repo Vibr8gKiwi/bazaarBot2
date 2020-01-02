@@ -46,37 +46,37 @@ namespace EconomySim
                 new Dictionary<string,double>{{"food",1},{"tools",1},{"wood",0},{"work",0}},
                 null
                 );
-            agentTypes[0].inventory = ii; 
+            agentTypes[0].Inventory = ii; 
             ii = new InventoryData(20, //miner
                 new Dictionary<string, double> { { "food", 3 }, { "tools", 1 }, { "ore", 0 } },
                 new Dictionary<string, double> { { "food", 1 }, { "tools", 1 }, { "ore", 0 } },
                 null
                 );
-            agentTypes[1].inventory = ii;
+            agentTypes[1].Inventory = ii;
             ii = new InventoryData(20, //refiner
                 new Dictionary<string, double> { { "food", 3 }, { "tools", 1 }, { "ore", 5 } },
                 new Dictionary<string, double> { { "food", 1 }, { "tools", 1 }, { "ore", 0 } },
                 null
                 );
-            agentTypes[2].inventory = ii;
+            agentTypes[2].Inventory = ii;
             ii = new InventoryData(20, //woodcutter
                 new Dictionary<string, double> { { "food", 3 }, { "tools", 1 }, { "wood", 0 } },
                 new Dictionary<string, double> { { "food", 1 }, { "tools", 1 }, { "wood", 0 } },
                 null
                 );
-            agentTypes[3].inventory = ii;
+            agentTypes[3].Inventory = ii;
             ii = new InventoryData(20, //blacksmith
                 new Dictionary<string, double> { { "food", 3 }, { "tools", 1 }, { "metal", 5 }, { "ore", 0 } },
                 new Dictionary<string, double> { { "food", 1 }, { "tools", 0 }, { "metal", 0 }, { "ore", 0 } },
                 null
                 );
-            agentTypes[4].inventory = ii;
+            agentTypes[4].Inventory = ii;
             ii = new InventoryData(20, //worker
                 new Dictionary<string, double> { { "food", 3 }  },
                 new Dictionary<string, double> { { "food", 1 } },
                 null
                 );
-            agentTypes[5].inventory = ii;
+            agentTypes[5].Inventory = ii;
 
 
             int idc = 0;
@@ -85,7 +85,7 @@ namespace EconomySim
                 for (int i = 0; i < 5; i++)
                 {
                     agents.Add(getAgent(agentTypes[iagent]));
-                    agents[agents.Count - 1].id = idc++;
+                    agents[agents.Count - 1].Id = idc++;
                 }
             }
 
@@ -208,7 +208,7 @@ namespace EconomySim
 
         private BasicAgent getAgent(AgentData data)
         {
-            data.logic = getLogic(data.logicName);
+            data.Logic = getLogic(data.logicName);
             return new Agent(0, data);
         }
 
